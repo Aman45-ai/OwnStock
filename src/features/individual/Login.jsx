@@ -2,15 +2,17 @@ import { LockKeyhole, ShieldCheck, User } from 'lucide-react'
 import React from 'react'
 import logo from '../../assets/logo.png'
 import loginImage from '../../assets/loginImage.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 const login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate()
     const onSubmit = (data) => {
         console.log(data)
         toast.success("Login successful!")
+        navigate('/individual/dashboard')
     }
     return (
         <form className='bg-[#000309] px-5 py-5 min-h-dvh flex justify-between items-center' onSubmit={handleSubmit(onSubmit)}>
