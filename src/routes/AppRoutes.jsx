@@ -1,10 +1,9 @@
-
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Login from '../features/individual/Login'
 import LandingPage from '../components/LandingPage'
 import Signup from '../features/individual/Signup'
-import Dashboard from '../features/individual/dashboard/Dashboard'
+import Dashboard from '../features/individual/Dashboard/Dashboard'
+import MyProductsUI from '../features/individual/myProducts/MyProductsUI'
 
 const AppRoutes = () => {
   return (
@@ -13,6 +12,7 @@ const AppRoutes = () => {
         <Route path='/individual/login' element = {<Login />} />
         <Route path='/individual/signup' element = {<Signup />} />
         <Route path='/individual/dashboard' element = {<Dashboard />} />
+        <Route path='/individual/products' element = {<MyProductsUI />} />
       </Routes>
 
   )

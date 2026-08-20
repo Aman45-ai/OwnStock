@@ -1,5 +1,4 @@
-import React from 'react'
-import logo from '../../../assets/logo.png'
+import logo from '../../assets/logo.png'
 import { File, Home, LoaderPinwheel, Package2, ShieldCheck } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
