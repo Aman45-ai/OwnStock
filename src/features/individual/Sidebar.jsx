@@ -36,7 +36,7 @@ const DashboardSidebar = () => {
         },
     ]
     return (
-        <div className='bg-[#000206] px-1 py-2 '>
+        <div className='bg-[#000206] px-1 py-2 border-r border-zinc-700'>
             <div className='h-25 flex items-center justify-center py-5'>
                 <img src={logo} alt="" className='h-full w-auto object-cover' />
             </div>

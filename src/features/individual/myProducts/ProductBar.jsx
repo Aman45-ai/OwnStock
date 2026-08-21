@@ -1,8 +1,10 @@
 import { Search } from 'lucide-react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 const ProductBar = () => {
+    const navigate = useNavigate()
     const { register } = useForm()
     return (
         <div className='text-white px-5 py-3'>
@@ -12,7 +14,9 @@ const ProductBar = () => {
                     <p className='text-sm text-zinc-400 pt-1'>Manage and track all your registered products in one place.</p>
                 </div>
                 <>
-                    <button className='bg-[#13AEA8] px-5 py-2 rounded-lg text-lg cursor-pointer hover:-translate-y-1 hover:shadow-[0_20px_35px_rgba(0,222,218,0.25)] transition-all duration-300 '>Add Product</button>
+                    <button className='bg-[#13AEA8] px-5 py-2 rounded-lg text-lg cursor-pointer hover:-translate-y-1 hover:shadow-[0_20px_35px_rgba(0,222,218,0.25)] transition-all duration-300' onClick={()=>{
+                        navigate('/individual/new-product')
+                    }}>Add Product</button>
                 </>
             </div>
             <div className='py-4 flex flex-1 items-center gap-5'>
