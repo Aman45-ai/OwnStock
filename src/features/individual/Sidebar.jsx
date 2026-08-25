@@ -18,18 +18,12 @@ const DashboardSidebar = () => {
         },
         {
             id:3,
-            icon: LoaderPinwheel,
-            Name: "Warranties",
-            path:"/individual/warranties"
-        },
-        {
-            id:4,
             icon: File,
             Name: "Documents",
             path:"/individual/documents"
         },
         {
-            id:5,
+            id:4,
             icon: ShieldCheck,
             Name: "Insurance",
             path:"/individual/insurance"

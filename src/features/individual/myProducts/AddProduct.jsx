@@ -2,10 +2,10 @@ import { ArrowLeft, Calendar, FileText, Package, ShieldCheck, Store } from 'luci
 import logo from '../../../assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 const AddProduct = () => {
     const navigate = useNavigate()
-
     const {
         register,
         handleSubmit,
@@ -14,6 +14,7 @@ const AddProduct = () => {
 
     const onSubmit = (data) => {
         console.log(data)
+        navigate('/individual/products')
     }
 
     return (
@@ -30,7 +31,6 @@ const AddProduct = () => {
 
                 <div>
                     <h1 className='text-3xl font-bold'> Add Product </h1>
-
                     <p className='text-sm text-zinc-400 mt-1'> Register a new product and keep track of its warranty. </p>
                 </div>
             </div>
@@ -46,7 +46,6 @@ const AddProduct = () => {
                     <div className='space-y-4'>
                         <div>
                             <label className='text-sm text-zinc-300'>Product Name</label>
-
                             <input
                                 type='text'
                                 placeholder='e.g. MacBook Air M3'
@@ -59,7 +58,6 @@ const AddProduct = () => {
                                 })}
                                 className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] transition-colors'
                             />
-
                             {errors.name && (<p className='text-red-400 text-xs mt-1'> {errors.name.message} </p>
                             )}
                         </div>
@@ -227,9 +225,7 @@ const AddProduct = () => {
                 <button type='button' onClick={() => navigate(-1)} className='px-6 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-[#131D2A] transition-colors cursor-pointer' >
                     Cancel
                 </button>
-                <button type='submit' className='px-6 py-2.5 rounded-lg bg-[#13AEA8] text-[#001B1A] font-semibold hover:-translate-y-0.5 hover:shadow-[0_15px_30px_rgba(0,222,218,0.2)] transition-all duration-300 cursor-pointer' >
-                    Add Product
-                </button>
+                <button type='submit' className='px-6 py-2.5 rounded-lg bg-[#13AEA8] text-[#001B1A] font-semibold hover:-translate-y-0.5 hover:shadow-[0_15px_30px_rgba(0,222,218,0.2)] transition-all duration-300 cursor-pointer' > Add Product</button>
             </div>
         </form>
     )

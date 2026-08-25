@@ -5,6 +5,7 @@ import Signup from '../features/individual/Signup'
 import Dashboard from '../features/individual/Dashboard/Dashboard'
 import MyProductsUI from '../features/individual/myProducts/MyProductsUI'
 import AddProduct from '../features/individual/myProducts/AddProduct'
+import DocumentUi from '../features/individual/documents/DocumentUi'
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
         <Route path='/individual/dashboard' element = {<Dashboard />} />
         <Route path='/individual/products' element = {<MyProductsUI />} />
         <Route path='/individual/new-product' element = {<AddProduct />} />
+        <Route path='/individual/documents' element = {<DocumentUi />} />
       </Routes>
 
   )
