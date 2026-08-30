@@ -1,11 +1,12 @@
 import { ArrowLeft, Calendar, FileText, Package, ShieldCheck, Store } from 'lucide-react'
-import logo from '../../../assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { IndividualContext } from '../../../context/IndividualContext'
 
 const AddProduct = () => {
     const navigate = useNavigate()
+    const {products,setProducts} = useContext(IndividualContext)
     const {
         register,
         handleSubmit,
@@ -14,14 +15,12 @@ const AddProduct = () => {
 
     const onSubmit = (data) => {
         console.log(data)
+        setProducts([...products,data])
         navigate('/individual/products')
     }
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='min-h-screen bg-[#0A111D] text-white'
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className='min-h-screen bg-[#0A111D] text-white'>
 
 
             <div className='flex px-5 py-4 items-center gap-3'>

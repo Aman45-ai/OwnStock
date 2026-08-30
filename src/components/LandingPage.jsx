@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
     return (
-        <div className='bg-[#000308] px-3 py-5 min-h-dvh md:px-8 lg:px-12 lg:py-10 '>
+        <div className='bg-[#000308] px-3 py-3 min-h-dvh md:px-8 lg:px-12 lg:py-10 '>
             <div className='max-w-8xl mx-auto'>
                 <div className='max-w-8xl mx-auto'>
-                    <div className='flex justify-between items-center  '>
+                    <div className='flex justify-between items-center '>
                         <img src={logo} alt="" className='w-15 h-auto md:w-20 lg:w-25' />
                         <div className='text-white flex  items-center border border-[#204035] px-2 py-1 rounded-lg gap-1'>
                             <ShieldCheck size={16} />
@@ -19,14 +19,14 @@ const LandingPage = () => {
                     </div>
                     <div className='flex items-center justify-between py-2 md:py-10' >
                         <div className='w-1/2'>
-                            <h1 className='text-white text-4xl font-semibold md:text-5xl lg:text-8xl '>Manage. <br />Track. <br />Own with <br /><span className='text-[#019F8F]'>Confidence</span></h1>
+                            <h1 className='text-white text-4xl font-semibold md:text-5xl lg:text-7xl lg:font-bold'>Manage. <br />Track. <br />Own with <br /><span className='text-[#019F8F]'>Confidence</span></h1>
                             <p className='text-zinc-400 text-xs leading-relaxed py-2 lg:text-lg'>Register, manage and protect your products, <br /> warranties, insurance and important <br /> documents - all in secure place.</p>
                         </div>
                         <div className='w-1/2 block md:hidden'>
-                            <img src={hero} alt="" className='w-full md:h-[60vh] object-contain' />
+                            <img src={hero} alt="" className='w-full  object-contain' />
                         </div>
                         <div className='w-1/2 hidden md:block'>
-                            <img src={lgHero} alt="" className='w-full  object-contain' />
+                            <img src={lgHero} alt="" className='w-full object-contain' />
                         </div>
                     </div>
                     <>
@@ -42,7 +42,7 @@ const LandingPage = () => {
                                 <p className='text-zinc-400 text-xs'>Manage my personal products, warranty, insurance and documents.</p>
                             </div>
                         </Link>
-                        <div className=' flex justify-center flex-1 min-w-0 items-center gap-5 py-3 px-2 border border-[#C78601] rounded-xl'>
+                        <div className=' flex justify-center flex-1 min-w-0 items-center gap-5 p-2 border border-[#C78601] rounded-xl'>
                             <div className='shrink-0'>
                                 <Store size={36} className='bg-[#C78601] p-2 rounded-xl text-white' />
                             </div>
