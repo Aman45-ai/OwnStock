@@ -1,10 +1,11 @@
 import { ArrowLeft, Calendar, FileText, Package, ShieldCheck, Store } from 'lucide-react'
-import logo from '../../../assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { IndividualContext } from '../../../context/IndividualContext'
 
 const UploadDocument = () => {
+  const { documents,setDocuments } = useContext(IndividualContext)
   const navigate = useNavigate()
   const {
     register,
@@ -14,7 +15,8 @@ const UploadDocument = () => {
 
   const onSubmit = (data) => {
     console.log(data)
-    navigate('/individual/products')
+    setDocuments([...documents,data])
+    navigate('/individual/documents')
   }
 
   return (
@@ -63,13 +65,13 @@ const UploadDocument = () => {
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                 <div>
                   <label className='text-sm text-zinc-300'> Document Type </label>
-                  <select className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] cursor-pointer'>
+                  <select className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] cursor-pointer' {...register("type")}>
                     <option value="invoice">Invoice</option>
                     <option value="receipt">Receipt</option>
                     <option value="warranty">Warranty</option>
                   </select>
 
-                  {errors.brand && (<p className='text-red-400 text-xs mt-1'>{errors.brand.message} </p>)}
+                  {errors.type && (<p className='text-red-400 text-xs mt-1'>{errors.type.message} </p>)}
                 </div>
 
                 <div>

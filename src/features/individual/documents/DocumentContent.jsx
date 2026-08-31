@@ -1,9 +1,14 @@
 import { FileText, Folder, Search, ShieldCheck } from 'lucide-react'
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import React from 'react'
+import { IndividualContext } from '../../../context/IndividualContext'
+import { useNavigate } from 'react-router-dom'
+
 
 const DocumentContent = () => {
+    const navigate = useNavigate()
     const { register } = useForm()
+    const { documents } = useContext(IndividualContext)
     const cards = [
         {
             id: 1,
@@ -43,41 +48,35 @@ const DocumentContent = () => {
         },
     ]
 
-    const documents = [
-        {
-            id: 1,
-            name: "MacBook Air M3 Invoice",
-            type: "Invoice",
-            product: "MacBook Air M3",
-            date: "12 Jan 2026",
-            fileType: "PDF",
-            fileSize: "1.2 MB",
-        },
-        {
-            id: 2,
-            name: "iPhone 16 Pro Warranty",
-            type: "Warranty",
-            product: "iPhone 16 Pro",
-            date: "05 Feb 2026",
-            fileType: "PDF",
-            fileSize: "856 KB",
-        },
-        {
-            id: 3,
-            name: "Sony Bravia Purchase Receipt",
-            type: "Receipt",
-            product: "Bravia 55 inch 4K TV",
-            date: "18 Nov 2025",
-            fileType: "JPG",
-            fileSize: "2.4 MB",
-        },
-    ]
+    let empty = (
+    <div className="w-full max-w-[70vw] mx-auto col-span-full mt-5">
+        <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#0B121D] px-6 py-16 text-center">
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#13AEA8]/10 blur-3xl rounded-full"></div>
+            <div className="relative flex flex-col items-center">
+                <div className="w-16 h-16 rounded-2xl bg-[#123337] border border-[#1B5555] flex items-center justify-center mb-5 shadow-[0_0_35px_rgba(19,174,168,0.12)]">
+                    <FileText size={30} className="text-[#13AEA8]"/>
+                </div>
+                <h1 className="text-3xl font-semibold text-white"> No Documents Yet</h1>
+                <p className="text-zinc-500 text-sm max-w-md mt-2 leading-6">Keep your invoices, receipts and warranty documents organized in one secure place.</p>
+                <button className="mt-7 inline-flex items-center gap-2 bg-[#13AEA8] hover:bg-[#0fa39e] text-white font-semibold px-5 py-2.5 rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(19,174,168,0.25)]" onClick={() => {
+                        navigate('/individual/upload-document')
+                    }}
+                >
+                    <FileText size={18} />
+                    Upload Document
+                </button>
+                <p className="text-xs text-zinc-600 mt-4">PDF, JPG or PNG · Securely stored</p>
+            </div>
+        </div>
+    </div>
+)
 
     return (
         <div className='px-5 py-3'>
             <div className='flex-1 mx-auto '>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mx-auto gap-5'>
-                    {cards.map((value) => {
+                    {documents.length===0? empty :
+                    cards.map((value) => {
                         const Icon = value.icon
                         return (
                             <div key={value.id} className=' flex items-center min-h-28 border border-zinc-900 rounded-lg gap-2.5 py-3 px-5 bg-[#0B121D]'>
@@ -92,10 +91,10 @@ const DocumentContent = () => {
                             </div>
                         )
                     })}
+                
                 </div>
             </div>
-
-            <div>
+            <div className={documents.length===0?"hidden":"block"}>
                 <div className='pt-5'>
                     <div className='flex justify-between items-center bg-[#0C131D] p-2 border-b border-zinc-800 rounded-t-lg'>
                         <div className='flex items-center gap-2 border border-zinc-800 px-2 py-1.5 rounded-sm '>
@@ -131,26 +130,27 @@ const DocumentContent = () => {
 
                 <div>
                     {documents.map((value) => {
-                        return (
-                            <div key={value.id} className='grid grid-cols-[2fr_1.5fr_1fr_1.2fr_0.8fr_0.8fr] items-center px-4 py-4 border-b border-zinc-800 hover:bg-[#0C131D] transition-colors'>
-                                <div className='flex items-center gap-3'>
-                                    <div className='bg-[#073A70] text-[#0078FF] p-2 rounded-lg'><FileText size={18} /></div>
-                                    <div>
-                                        <p className='text-white text-sm font-medium'>{value.name}</p>
-                                        <p className='text-zinc-600 text-xs'>{value.fileType}</p>
+                            return (
+                                <div key={value.id} className='grid grid-cols-[2fr_1.5fr_1fr_1.2fr_0.8fr_0.8fr] items-center px-4 py-4 border-b border-zinc-800 hover:bg-[#0C131D] transition-colors'>
+                                    <div className='flex items-center gap-3'>
+                                        <div className='bg-[#073A70] text-[#0078FF] p-2 rounded-lg'><FileText size={18} /></div>
+                                        <div>
+                                            <p className='text-white text-sm font-medium'>{value.name}</p>
+                                            <p className='text-zinc-600 text-xs'>{value.fileType}</p>
+                                        </div>
+                                    </div>
+                                    <p className='text-zinc-300 text-sm'>{value.product}</p>
+                                    <span className='w-fit bg-[#073A70] text-[#0078FF] text-xs px-2.5 py-1 rounded-full'>{value.type}</span>
+                                    <p className='text-zinc-400 text-sm'>{value.date}</p>
+                                    <p className='text-zinc-400 text-sm'>{value.fileSize}</p>
+                                    <div className='flex justify-end gap-2'>
+                                        <button className='text-zinc-400 hover:text-white cursor-pointer transition-colors'>View</button>
+                                        <button className='text-zinc-400 hover:text-[#13AEA8] cursor-pointer transition-colors'>Download</button>
                                     </div>
                                 </div>
-                                <p className='text-zinc-300 text-sm'>{value.product}</p>
-                                <span className='w-fit bg-[#073A70] text-[#0078FF] text-xs px-2.5 py-1 rounded-full'>{value.type}</span>
-                                <p className='text-zinc-400 text-sm'>{value.date}</p>
-                                <p className='text-zinc-400 text-sm'>{value.fileSize}</p>
-                                <div className='flex justify-end gap-2'>
-                                    <button className='text-zinc-400 hover:text-white cursor-pointer transition-colors'>View</button>
-                                    <button className='text-zinc-400 hover:text-[#13AEA8] cursor-pointer transition-colors'>Download</button>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>

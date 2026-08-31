@@ -1,105 +1,181 @@
-import { ArrowLeft, Calendar, FileText, Package, ShieldCheck, Store } from 'lucide-react'
-import logo from '../../../assets/logo.png'
+import {
+  ArrowLeft,
+  Calendar,
+  FileText,
+  Package,
+  ShieldCheck,
+  Store
+} from 'lucide-react'
+
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { IndividualContext } from '../../../context/IndividualContext'
 
 const AddInsurance = () => {
   const navigate = useNavigate()
+  const { insurance, setInsurance } = useContext(IndividualContext)
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
-
   const onSubmit = (data) => {
     console.log(data)
-    navigate('/individual/products')
+    setInsurance([...insurance, data])
+    navigate('/individual/insurance')
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className='min-h-screen bg-[#0A111D] text-white'>
-
-
-      <div className='flex px-5 py-4 items-center gap-3'>
-        <button type='button' onClick={() => navigate(-1)} className='border border-zinc-600 rounded-xl p-1.5 cursor-pointer hover:border-[#13AEA8] hover:text-[#13AEA8] transition-all duration-200'>
-          <ArrowLeft size={24} />
-        </button>
-
-        <div>
-          <h1 className='text-3xl font-bold'> Add Insurance </h1>
-          <p className='text-sm text-zinc-400 mt-1'>Add an insurance policy to protect your product</p>
+    <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen bg-[#0A111D] text-white" >
+      <div className="px-6 py-5 border-b border-zinc-800">
+        <div className="flex items-center gap-4 max-w-5xl mx-auto">
+          <button type="button" onClick={() => navigate(-1)} className="p-2 rounded-xl border border-zinc-700 text-zinc-400 hover:text-[#13AEA8] hover:border-[#13AEA8] transition-all duration-200 cursor-pointer" >
+            <ArrowLeft size={22} />
+          </button>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight"> Add Insurance </h1>
+            <p className="text-sm text-zinc-500 mt-1"> Add an insurance policy and keep your coverage details organized. </p>
+          </div>
         </div>
       </div>
-      <div className='flex justify-center px-5 py-3 w-150 mx-auto'>
-        <div className='w-full mx-w-175 '>
-          <div className='bg-[#0F1825] border border-zinc-800 rounded-xl p-5'>
-            <div className='flex items-center gap-3 mb-5'>
-              <div className='bg-[#003C3D] text-[#13AEA8] p-2 rounded-lg'> <Package size={20} /> </div>
-              <div>
-                <h2 className='font-semibold text-lg'>Insurance Information</h2>
-              </div>
+      <div className="max-w-5xl mx-auto px-6 py-8">
+        <div className="bg-[#0F1825] border border-zinc-800 rounded-2xl overflow-hidden">
+          <div className="px-6 py-5 border-b border-zinc-800 flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-[#003C3D] text-[#13AEA8]">
+              <ShieldCheck size={21} />
             </div>
-            <div className='space-y-4'>
+            <div>
+              <h2 className="font-semibold text-lg">Insurance Information </h2>
+              <p className="text-xs text-zinc-500 mt-0.5"> Enter the details of your insurance policy.</p>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className='text-sm text-zinc-300'>Insurance Provider</label>
+                <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                  <Package size={15} className="text-zinc-500" /> Product </label>
+                <select {...register("product", {
+                    required: "Product is required!"
+                  })}
+                  defaultValue=""
+                  className="w-full bg-[#0D1521] border border-zinc-700
+                  rounded-lg px-3 py-2.5 text-white
+                  focus:outline-none focus:border-[#13AEA8]
+                  transition-colors cursor-pointer"
+                >
+                  <option value="" disabled> Select product</option>
+                  <option value="Laptop"> Laptop </option>
+                  <option value="Mobile"> Mobile </option>
+                  <option value="Television"> Television </option>
+                  <option value="Kitchen Appliance"> Kitchen Appliance </option>
+                  <option value="Others"> Others </option>
+                </select>
+                {errors.product && (
+                  <p className="text-red-400 text-xs mt-1">{errors.product.message} </p>
+                )}
+              </div>
+              <div>
+                <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                  <Store size={15} className="text-zinc-500" /> Insurance Provider
+                </label>
                 <input
-                  type='text'
-                  placeholder='e.g. AppleCare+, HDFC ERGO'
-                  {...register('name', {
-                    required: 'Product name is required!',
+                  type="text"
+                  placeholder="e.g. AppleCare+, HDFC ERGO"
+                  {...register("name", {
+                    required: "Insurance provider is required!",
                     minLength: {
                       value: 3,
-                      message: 'Product name must be at least 3 characters'
+                      message: "Provider must be at least 3 characters"
                     }
                   })}
-                  className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] transition-colors'
+                  className="w-full bg-[#0D1521] border border-zinc-700
+                  rounded-lg px-3 py-2.5 text-white
+                  placeholder:text-zinc-600
+                  focus:outline-none focus:border-[#13AEA8]
+                  transition-colors cursor-pointer"
                 />
-                {errors.name && (<p className='text-red-400 text-xs mt-1'> {errors.name.message} </p>
+
+                {errors.name && (
+                  <p className="text-red-400 text-xs mt-1">
+                    {errors.name.message}
+                  </p>
                 )}
+
               </div>
               <div>
-                <label className='text-sm text-zinc-300'>Policy Number</label>
-                <input
-                  type='text'
-                  placeholder='e.g. ACPL123456789'
-                  {...register('policy', {
-                    required: 'Policy Number is required!',
-                  })}
-                  className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] transition-colors'
-                />
-                {errors.policy && (<p className='text-red-400 text-xs mt-1'> {errors.policy.message} </p>
-                )}
-              </div>
-              <div>
-                <label className='text-sm text-zinc-300'>Coverage Amount(₹)</label>
-                <input
-                  type='number'
-                  placeholder='e.g. 114000'
-                  {...register('amount', {
-                    required: 'Coverage amount is required!',
-                  })}
-                  className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] transition-colors'
-                />
-                {errors.amount && (<p className='text-red-400 text-xs mt-1'> {errors.amount.message} </p>
-                )}
-              </div>
-              <div>
-                <label className='text-sm text-zinc-300'>
-                  Invoice / Warranty Document
+                <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                  <FileText size={15} className="text-zinc-500" /> Policy Number
                 </label>
-                <div className='mt-1 border border-dashed border-zinc-700 rounded-lg p-5 text-center bg-[#0D1521] hover:border-[#13AEA8] transition-colors cursor-pointer'>
-                  <FileText className='mx-auto text-zinc-500' size={28} />
-                  <p className='text-sm text-zinc-400 mt-2'>Upload insurance policy document</p>
-                  <p className='text-xs text-zinc-600 mt-1'> PDF, JPG or PNG </p>
-                </div>
-                <div className='flex justify-center items-center gap-5 pt-5 text-white'>
-                  <button className='bg-red-700 border border-zinc-700 px-15 py-2 w-1/2 rounded-sm cursor-pointer  hover:-translate-y-1 hover:shadow-[0_20px_35px_rgba(120,6,6,0.75)] transition-all duration-300'>Cancel</button>
-                  <button className='bg-[#00CAB7] border border-zinc-700 px-10 py-2 w-1/2 rounded-sm cursor-pointer  hover:-translate-y-1 hover:shadow-[0_20px_35px_rgba(0,222,218,0.25)] transition-all duration-300'>Upload Document</button>
-                </div>
+                <input type="text" placeholder="e.g. ACPL123456789"
+                  {...register("policy", {
+                    required: "Policy number is required!"
+                  })}
+                  className="w-full bg-[#0D1521] border border-zinc-700 rounded-lg px-3 py-2.5 text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8] transition-colors cursor-pointer" />
+                {errors.policy && (
+                  <p className="text-red-400 text-xs mt-1"> {errors.policy.message} </p>
+                )}
               </div>
+              <div>
+                <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                  <ShieldCheck size={15} className="text-zinc-500" /> Coverage Amount
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2.5 text-zinc-500"> ₹ </span>
+                  <input type="number" placeholder="e.g. 114000"{...register("amount", {
+                      required: "Coverage amount is required!"
+                    })} className="w-full bg-[#0D1521] border border-zinc-700 px-7 py-2.5 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#13AEA8]
+                    transition-colors cursor-pointer"
+                  />
+                </div>
+                {errors.amount && (
+                  <p className="text-red-400 text-xs mt-1">{errors.amount.message} </p>
+                )}
+              </div>
+              <div>
+                <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                  <Calendar size={15} className="text-zinc-500" />Start Date
+                </label>
+                <input type="date" {...register("startDate", {
+                    required: "Start date is required!"
+                  })} className="w-full bg-[#0D1521] border border-zinc-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-[#13AEA8] transition-colors cursor-pointer" />
+                {errors.startDate && (
+                  <p className="text-red-400 text-xs mt-1"> {errors.startDate.message} </p>
+                )}
+              </div>
+              <div>
+                <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                  <Calendar size={15} className="text-zinc-500" /> Expiry Date
+                </label>
+                <input type="date" {...register("expiryDate", {
+                    required: "Expiry date is required!"
+                  })} className="w-full bg-[#0D1521] border border-zinc-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-[#13AEA8] transition-colors cursor-pointer" />
+                {errors.expiryDate && (
+                  <p className="text-red-400 text-xs mt-1">
+                    {errors.expiryDate.message}
+                  </p>
+                )}
+              </div>
+              
+            </div>
+            <div className="mt-6">
+              <label className="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+                <FileText size={15} className="text-zinc-500" /> Insurance Policy Document
+              </label>
+              <div className="border border-dashed border-zinc-700 rounded-xl p-8 text-center bg-[#0D1521] hover:border-[#13AEA8] transition-colors cursor-pointer"
+              >
+                <FileText size={32} className="mx-auto text-zinc-600" />
+                <p className="text-sm text-zinc-400 mt-3">  Upload your insurance policy document </p>
+                <p className="text-xs text-zinc-600 mt-1">  PDF, JPG or PNG</p>
+              </div>
+            </div>
+           
+            <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-zinc-800">
+              <button type="button" onClick={() => navigate(-1)} className="px-6 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-whitetransition-all duration-200 cursor-pointer" > Cancel
+              </button>
+              <button type="submit" className="px-7 py-2.5 rounded-lg
+                bg-[#13AEA8] text-white font-medium hover:-translate-y-0.5 hover:shadow-[0_15px_30px_rgba(0,222,218,0.18)] transition-all duration-300 cursor-pointer" > Add Insurance
+              </button>
             </div>
           </div>
         </div>

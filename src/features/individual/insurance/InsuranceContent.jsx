@@ -10,11 +10,12 @@ import {
 } from 'lucide-react'
 
 import { useForm } from 'react-hook-form'
-
+import { IndividualContext } from '../../../context/IndividualContext'
 import product from '../../../assets/product.png'
+import { useContext } from 'react'
 
 const InsuranceContent = () => {
-
+    const { insurance } = useContext(IndividualContext)
     const { register } = useForm()
 
     const cards = [
@@ -116,63 +117,6 @@ const InsuranceContent = () => {
         },
     ]
 
-    const policies = [
-        {
-            id: 1,
-            name: "MacBook Air M3",
-            category: "Laptop",
-            provider: "AppleCare+",
-            policyNo: "ACPL123456789",
-            coverage: "₹1,50,000",
-            startDate: "15 May 2024",
-            expiryDate: "15 May 2027",
-            status: "Active",
-        },
-        {
-            id: 2,
-            name: "iPhone 16 Pro",
-            category: "Mobile",
-            provider: "HDFC ERGO",
-            policyNo: "HDF123987654",
-            coverage: "₹1,00,000",
-            startDate: "05 Feb 2026",
-            expiryDate: "10 Dec 2026",
-            status: "Active",
-        },
-        {
-            id: 3,
-            name: 'Sony Bravia 55" 4K TV',
-            category: "Television",
-            provider: "OneAssist",
-            policyNo: "OAPL564738291",
-            coverage: "₹60,000",
-            startDate: "18 Nov 2025",
-            expiryDate: "28 Sep 2026",
-            status: "Active",
-        },
-        {
-            id: 4,
-            name: "Galaxy S25 Ultra",
-            category: "Mobile",
-            provider: "Samsung Care+",
-            policyNo: "SAM987654321",
-            coverage: "₹1,20,000",
-            startDate: "22 Mar 2026",
-            expiryDate: "22 Mar 2027",
-            status: "Active",
-        },
-        {
-            id: 5,
-            name: "LG Front Load Washer",
-            category: "Kitchen Appliances",
-            provider: "LG Extended Warranty",
-            policyNo: "LG123456789",
-            coverage: "₹45,000",
-            startDate: "10 Aug 2025",
-            expiryDate: "17 Dec 2026",
-            status: "Expiring Soon",
-        },
-    ]
 
     return (
         <div className='px-5 py-3'>
@@ -199,7 +143,7 @@ const InsuranceContent = () => {
                     <div className='flex justify-between items-center px-5 py-4 border-b border-zinc-800'>
                         <div>
                             <div className='flex items-center gap-2'>
-                                <ShieldCheck size={20} className='text-[#13AEA8]'/>
+                                <ShieldCheck size={20} className='text-[#13AEA8]' />
                                 <h2 className='text-white font-semibold text-lg'> Active Coverage </h2>
                             </div>
                             <p className='text-zinc-500 text-sm mt-1'>Your active insurance policies </p>
@@ -240,7 +184,7 @@ const InsuranceContent = () => {
 
                                 <div className='flex items-center gap-3 mt-3'>
                                     <div className='h-1.5 bg-[#18212C] rounded-full flex-1 overflow-hidden'>
-                                        <div className='h-full bg-[#13AEA8] rounded-full' style={{  width: value.progress }} />
+                                        <div className='h-full bg-[#13AEA8] rounded-full' style={{ width: value.progress }} />
                                     </div>
                                     <span className='text-zinc-500 text-xs whitespace-nowrap'>{value.progress} of coverage period completed </span>
                                 </div>
@@ -253,7 +197,7 @@ const InsuranceContent = () => {
                 <div className='lg:col-span-2 bg-[#0B121D] border border-zinc-800 rounded-xl overflow-hidden'>
                     <div className='px-5 py-4 border-b border-zinc-800'>
                         <div className='flex items-center gap-2'>
-                            <Calendar size={20} className='text-[#13AEA8]'/>
+                            <Calendar size={20} className='text-[#13AEA8]' />
                             <h2 className='text-white font-semibold text-lg'> Upcoming Renewals </h2>
                         </div>
                         <p className='text-zinc-500 text-sm mt-1'> Policies expiring soon </p>
@@ -286,7 +230,7 @@ const InsuranceContent = () => {
                     <div className='flex items-center gap-3 flex-1 justify-end'>
                         <div className='flex items-center gap-2 border border-zinc-800 bg-[#0D1521] px-2.5 py-2 rounded-lg w-full max-w-85'>
                             <Search size={18} className='text-zinc-500' />
-                            <input type='text' placeholder='Search by product or provider...' {...register('search')} className='bg-transparent outline-none text-white placeholder:text-zinc-600 text-sm w-full'/>
+                            <input type='text' placeholder='Search by product or provider...' {...register('search')} className='bg-transparent outline-none text-white placeholder:text-zinc-600 text-sm w-full' />
 
                         </div>
                         <select className='border border-zinc-800 bg-[#0D1521] text-zinc-300 px-3 py-2 rounded-lg text-sm cursor-pointer outline-none'>
@@ -314,32 +258,24 @@ const InsuranceContent = () => {
                     <p>STATUS</p>
                     <p>ACTIONS</p>
                 </div>
-                {policies.map((value) => (
+                {insurance.map((value) => (
                     <div key={value.id} className='grid grid-cols-[1.5fr_1.1fr_1.2fr_1fr_1fr_1fr_0.8fr_0.5fr] gap-3 items-center px-5 py-3 border-b border-zinc-800 hover:bg-[#0E1722] transition-colors' >
                         <div className='flex items-center gap-3 min-w-0'>
-                            <div className='w-11 h-11 shrink-0 rounded-lg bg-[#1A222C] p-1'>
+                            <div className='w-11 h-11  rounded-lg bg-[#1A222C] p-1 flex justify-center items-center'>
                                 <img src={product} alt='' className='w-full h-full object-contain rounded-md' />
                             </div>
                             <div className='min-w-0'>
-                                <p className='text-white text-sm truncate'> {value.name} </p>
-                                <p className='text-zinc-500 text-xs mt-0.5'> {value.category} </p>
+                                <p className='text-white text-sm truncate'> {value.product} </p>
+
                             </div>
                         </div>
-
-                        <p className='text-zinc-300 text-sm'>{value.provider}</p>
-                        <p className='text-zinc-400 text-sm'>{value.policyNo} </p>
-                        <p className='text-zinc-300 text-sm'> {value.coverage}</p>
-                        <p className='text-zinc-400 text-sm'> {value.startDate} </p>
-                        <p className='text-zinc-300 text-sm'> {value.expiryDate} </p>
+                        <p className='text-zinc-300 text-sm'>{value.name}</p>
+                        <p className='text-zinc-400 text-sm'>{value.policy}</p>   
+                        <p className='text-zinc-300 text-sm'>{value.amount}</p>     
+                        <p className='text-zinc-400 text-sm'>{value.startDate}</p>  
+                        <p className='text-zinc-300 text-sm'>{value.expiryDate}</p> 
                         <div>
-                            <span
-                                className={
-                                    value.status === "Active"
-                                        ? 'bg-[#063B2E] text-[#00D9A1] px-3 py-1 rounded-full text-xs'
-                                        : 'bg-[#57370B] text-[#E07D00] px-3 py-1 rounded-full text-xs'
-                                }
-                            > {value.status}</span>
-
+                            <span className={value.status === "Active" ? 'bg-[#063B2E] text-[#00D9A1] px-3 py-1 rounded-full text-xs' : 'bg-[#57370B] text-[#E07D00] px-3 py-1 rounded-full text-xs'} > {value.status}</span>
                         </div>
                         <div className='flex items-center gap-2'>
                             <button className='border border-zinc-800 p-2 rounded-lg text-zinc-400 hover:text-white hover:border-zinc-600 cursor-pointer'> <Eye size={16} /> </button>

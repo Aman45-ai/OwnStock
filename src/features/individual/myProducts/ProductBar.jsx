@@ -1,9 +1,11 @@
 import { Search } from 'lucide-react'
-import React from 'react'
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { IndividualContext } from '../../../context/IndividualContext'
 
 const ProductBar = () => {
+    const {products} = useContext(IndividualContext)
     const navigate = useNavigate()
     const { register } = useForm()
     return (
@@ -19,7 +21,8 @@ const ProductBar = () => {
                     }}>Add Product</button>
                 </>
             </div>
-            <div className='py-4 flex flex-1 items-center gap-5'>
+            <div className={products.length===0?"hidden":"block"}>
+                <div className='py-4 flex flex-1 items-center gap-5'>
                 <div className='w-full max-w-125 flex justify-center items-center border border-[#474d61] px-2 py-1 rounded-sm gap-2'>
                     <Search size={18} className='text-zinc-500' />
                     <input type="text" placeholder='Search products, warranties, documents' {...register("search")} className='placeholder:text-zinc-500 w-full bg-transparent text-white focus:outline-none' />
@@ -43,6 +46,8 @@ const ProductBar = () => {
                     </select>
                 </div>
             </div>
+            </div>
+            
         </div>
     )
 }
