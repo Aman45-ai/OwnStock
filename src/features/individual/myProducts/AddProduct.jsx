@@ -15,14 +15,17 @@ const AddProduct = () => {
 
     const onSubmit = (data) => {
         console.log(data)
-        setProducts([...products,data])
+        const updatedProducts = [...products, data]
+        setProducts(updatedProducts)
+        const stringUpdatedProducts = JSON.stringify(updatedProducts)
+        localStorage.setItem("products",stringUpdatedProducts)
         navigate('/individual/products')
     }
+    
+    
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='min-h-screen bg-[#0A111D] text-white'>
-
-
             <div className='flex px-5 py-4 items-center gap-3'>
                 <button type='button' onClick={() => navigate(-1)} className='border border-zinc-600 rounded-xl p-1.5 cursor-pointer hover:border-[#13AEA8] hover:text-[#13AEA8] transition-all duration-200'>
                     <ArrowLeft size={24} />

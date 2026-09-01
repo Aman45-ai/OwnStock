@@ -1,48 +1,23 @@
 import { ArrowRight } from 'lucide-react'
 import product from '../../../../assets/product.png'
+import { useContext } from 'react'
+import { IndividualContext } from '../../../../context/IndividualContext'
+import { useNavigate } from 'react-router-dom'
 
 const RecentProducts = () => {
-
-    const products = [
-        {
-            id: 1,
-            name: "MacBook Pro 16”",
-            category: "Electronics",
-            brand: "Apple",
-            price: "₹1,20,000",
-            addedOn: "18 May 2025",
-            warranty: "May 2027",
-        },
-        {
-            id: 2,
-            name: "iPhone 17 Pro",
-            category: "Electronics",
-            brand: "Apple",
-            price: "₹89,900",
-            addedOn: "10 May 2025",
-            warranty: "Sept 2028",
-        },
-        {
-            id: 3,
-            name: "Sony A7 IV",
-            category: "Electronics",
-            brand: "Sony",
-            price: "₹2,35,900",
-            addedOn: "02 May 2025",
-            warranty: "Feb 2027",
-        },
-    ]
-
+    const navigate = useNavigate()
+    const {products} = useContext(IndividualContext)
     return (
         <div className="bg-[#0B121D] border border-zinc-800 rounded-xl p-4">
             <div className="flex justify-between items-center border-b border-zinc-800 pb-3">
                 <h2 className="text-white text-lg font-semibold">Recent Products </h2>
-                <button className="text-zinc-300 text-sm border border-zinc-800 rounded-lg px-3 py-1.5 hover:text-white hover:border-zinc-600 transition-all cursor-pointer"> View all</button>
+                <button className="text-zinc-300 text-sm border border-zinc-800 rounded-lg px-3 py-1.5 hover:text-[#10e5de] hover:border-[#054c4a] transition-all cursor-pointer" onClick={()=>{
+                    navigate('/individual/products')
+                }}> View all</button>
             </div>
             <div>
-                {products.map((value) => (
+                {products.slice(-2).toReversed().map((value) => (
                     <div key={value.id} className="flex items-center gap-4 py-3 border-b border-zinc-800 last:border-b-0" >
-
                         <div className="w-16 h-16 shrink-0 bg-zinc-800 rounded-lg overflow-hidden">
                             <img src={product} alt="" className="w-full h-full object-cover" />
                         </div>
