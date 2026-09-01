@@ -13,8 +13,8 @@ const DashboardContent = () => {
 
 
   return (
-    <div className='bg-[#00070F]'>
-      <div className='max-w-[1600px] w-full mx-auto'>
+    <div className='bg-[#00070F] h-full'>
+      <div className='max-w-[1600px] w-full mx-auto py-5'>
         <WelcomeSection />
         <StatsCards />
         <div className='grid grid-cols-1 lg:grid-cols-[1fr_0.5fr] gap-2 py-2 px-5'>

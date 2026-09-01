@@ -1,15 +1,13 @@
 import DashboardContent from "./DashboardContent"
-import DashboardNavbar from "./DashboardNavbar"
 import Sidebar from "../Sidebar"
 
 
 
 const Dashboard = () => {
   return (
-    <div className='grid grid-cols-[220px_1fr] '>
+    <div className='grid grid-cols-[220px_1fr] h-screen'>
       <Sidebar />
       <div>
-        <DashboardNavbar />
         <DashboardContent />
       </div>
     </div>

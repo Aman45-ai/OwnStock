@@ -12,7 +12,7 @@ const WelcomeSection = () => {
   }
   return (
       <div className='px-5 py-2'>
-          <h1 className='text-white text-lg font-semibold'>{greeting}, Aman 👋</h1>
+          <h1 className='text-white text-xl font-semibold'>{greeting}, Aman 👋</h1>
           <p className='text-zinc-400 text-sm'>Here's an overview of your assets</p>
       </div>
   )
