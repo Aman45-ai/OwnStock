@@ -7,6 +7,25 @@ const StatsCards = () => {
   const totalPrice = products.reduce((total, product)=>{
     return total+Number(product.price)
   },0)
+  
+  const activeWarranties = products.filter((value) => {
+    if (!value.warrantyExpiry) return false
+
+    const expiryDate = new Date(value.warrantyExpiry).getTime()
+    const warrantyTimeLeft = expiryDate - Date.now()
+    const daysLeft = warrantyTimeLeft / (1000 * 60 * 60 * 24)
+    return daysLeft > 30
+}).length
+
+  const expiringSoon = products.filter((value) => {
+    if (!value.warrantyExpiry) return false
+
+    const expiryDate = new Date(value.warrantyExpiry).getTime()
+    const warrantyTimeLeft = expiryDate - Date.now()
+    const daysLeft = warrantyTimeLeft / (1000 * 60 * 60 * 24)
+    return daysLeft > 0 && daysLeft < 30
+}).length
+
   const cards = [
     {
       id: 1,
@@ -21,7 +40,7 @@ const StatsCards = () => {
       id: 2,
       icon: Receipt,
       title: "Total Value",
-      number: totalPrice,
+      number: "₹ " + totalPrice,
       subTitle: "Across all products",
       background:"bg-[#0d2842]",
       text:"text-[#0586ff]"
@@ -30,7 +49,7 @@ const StatsCards = () => {
       id: 3,
       icon: ShieldCheck,
       title: "Active Warranties",
-      number: 8,
+      number: activeWarranties,
       subTitle: "Currently Active",
       background:"bg-[#241840]",
       text:"text-[#8d5cff]"
@@ -39,7 +58,7 @@ const StatsCards = () => {
       id: 4,
       icon: Clock,
       title: "Expiring Soon",
-      number: 3,
+      number: expiringSoon,
       subTitle: "Next 30 days",
       background:"bg-[#713B08]",
       text:"text-[#f57b07]"

@@ -15,7 +15,12 @@ const AddProduct = () => {
 
     const onSubmit = (data) => {
         console.log(data)
-        const updatedProducts = [...products, data]
+        const product = {
+            ...data,
+            id: Date.now(),
+            addedOn:new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+        }
+        const updatedProducts = [...products, product]
         setProducts(updatedProducts)
         const stringUpdatedProducts = JSON.stringify(updatedProducts)
         localStorage.setItem("products",stringUpdatedProducts)

@@ -18,7 +18,8 @@ const UploadDocument = () => {
     console.log(data)
     const updatedDate = {
       ...data,
-      uploadedOn: new Date().toISOString().split('T')[0]
+      uploadedOn: new Date().toISOString().split('T')[0],
+      id:Date.now()
     }
     const updatedData = [...documents,updatedDate]
     setDocuments(updatedData)

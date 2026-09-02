@@ -20,9 +20,17 @@ const AddInsurance = () => {
     handleSubmit,
     formState: { errors }
   } = useForm()
+
   const onSubmit = (data) => {
     console.log(data)
-    setInsurance([...insurance, data])
+    const updateInsurance = {
+      ...data,
+      id:Date.now()
+    }
+    const updatedData = [...insurance, updateInsurance]
+    setInsurance(updatedData)
+    const stringUpdatedInsurance = JSON.stringify(updatedData)
+    localStorage.setItem("insurance",stringUpdatedInsurance)
     navigate('/individual/insurance')
   }
 
