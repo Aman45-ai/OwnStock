@@ -1,10 +1,10 @@
 import { Search } from 'lucide-react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { IndividualContext } from '../../../context/IndividualContext'
 
-const ProductBar = () => {
+const ProductBar = ({setSearch, setCategory, setStatus}) => {
     const {products} = useContext(IndividualContext)
     const navigate = useNavigate()
     const { register } = useForm()
@@ -25,21 +25,29 @@ const ProductBar = () => {
                 <div className='py-4 flex flex-1 items-center gap-5'>
                 <div className='w-full max-w-125 flex justify-center items-center border border-[#474d61] px-2 py-1 rounded-sm gap-2'>
                     <Search size={18} className='text-zinc-500' />
-                    <input type="text" placeholder='Search products, warranties, documents' {...register("search")} className='placeholder:text-zinc-500 w-full bg-transparent text-white focus:outline-none' />
+                    <input type="text" placeholder='Search products, warranties, documents' {...register("search")} className='placeholder:text-zinc-500 w-full bg-transparent text-white focus:outline-none' onChange={(e)=>{
+                        setSearch(e.target.value.toLowerCase())
+                    }}/>
                 </div>
                 <div className='border rounded-sm border-[#474d61] px-2 py-1 cursor-pointer'>
-                    <select name="categories" id="categories" defaultValue="all" className='bg-[#0F1218] text-white focus:outline-none cursor-pointer'>
-                        <option value="all" disabled className="bg-[#0F1218] text-white">All Categories</option>
+                    <select name="categories" id="categories" defaultValue="all" className='bg-[#0F1218] text-white focus:outline-none cursor-pointer' onChange={(e)=>{
+                        setCategory(e.target.value)
+                    }}>
+                        
+                        <option value="all" className="bg-[#0F1218] text-white">All Categories</option>
                         <option value="television" className="bg-[#0F1218] text-white ">Television</option>
                         <option value="laptop" className="bg-[#0F1218] text-white ">Laptop</option>
                         <option value="kitchen" className="bg-[#0F1218] text-white ">Kitchen Appliances</option>
                         <option value="mobile" className="bg-[#0F1218] text-white ">Mobile</option>
                         <option value="others" className="bg-[#0F1218] text-white ">Others</option>
                     </select>
+                    
                 </div>
                 <div className='border rounded-sm border-[#474d61] px-2 py-1 cursor-pointer'>
-                    <select name="status" id="status"  defaultValue="all" className='bg-[#0F1218] text-white focus:outline-none cursor-pointer'>
-                        <option value="all" disabled className="bg-[#0F1218] text-white ">All Status</option>
+                    <select name="status" id="status"  defaultValue="all" className='bg-[#0F1218] text-white focus:outline-none cursor-pointer' onChange={(e)=>{
+                        setStatus(e.target.value)
+                    }}>
+                        <option value="all" className="bg-[#0F1218] text-white ">All Status</option>
                         <option value="active" className="bg-[#0F1218] text-white ">Active</option>
                         <option value="expiring" className="bg-[#0F1218] text-white ">Expiring Soon</option>
                         <option value="expired" className="bg-[#0F1218] text-white ">Expired</option>
