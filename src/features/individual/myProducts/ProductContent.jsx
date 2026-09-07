@@ -3,6 +3,7 @@ import product from '../../../assets/product.png'
 import { IndividualContext } from '../../../context/IndividualContext'
 import { useNavigate } from 'react-router-dom'
 import { Package } from 'lucide-react'
+import {Warranty} from '../../../utils/Warranty'
 
 const ProductContent = () => {
     const { products } = useContext(IndividualContext)
@@ -47,19 +48,7 @@ const ProductContent = () => {
                             year: "numeric"
                         })
                         : "N.A."
-                    let warrantyStatus
-                    if (values.warrantyExpiry) {
-                        const expiryDate = new Date(values.warrantyExpiry).getTime()
-                        const warrantyTimeLeft = expiryDate - today
-                        const daysLeft = warrantyTimeLeft / (1000 * 60 * 60 * 24)
-                        if (daysLeft > 0 && daysLeft <= 30) {
-                            warrantyStatus = "Expiring Soon"
-                        } else if (daysLeft > 30) {
-                            warrantyStatus = "Active"
-                        } else {
-                            warrantyStatus = "Expired"
-                        }
-                    }
+                    const {status} = Warranty(values)
 
 
                     return (
@@ -73,7 +62,7 @@ const ProductContent = () => {
                                         <h3 className='text-white text-lg'>{values.name}</h3>
                                         <p className='text-zinc-500 text-sm'>{values.brand}</p>
                                         <h1 className='text-[#00e6fb] text-xl'>₹ {values.price}</h1>
-                                        <h1 className={`${warrantyStatus=="Active"?"text-[#04a597] text-sm border-[#015f58] bg-[#015f5944]": warrantyStatus=="Expiring Soon"?"text-[#ED7707] text-sm border-[#c36002] bg-[#442203]":warrantyStatus=="Expired"?"text-[#ff2020] text-sm border-[#c30202] bg-[#44030380]":"text-zinc-500  text-xs"} border w-fit px-2 py-0.5 mt-1.5 rounded-2xl`}>{warrantyStatus || "N.A."}</h1>
+                                        <h1 className={`${status=="Active"?"text-[#04a597] text-sm border-[#015f58] bg-[#015f5944]": status=="Expiring Soon"?"text-[#ED7707] text-sm border-[#c36002] bg-[#442203]":status=="Expired"?"text-[#ff2020] text-sm border-[#c30202] bg-[#44030380]":"text-zinc-500  text-xs"} border w-fit px-2 py-0.5 mt-1.5 rounded-2xl`}>{status || "N.A."}</h1>
                                     </div>
                                 </div>
                                 <div className='flex justify-between items-center gap-2 border-t border-zinc-700 px-4 py-2'>
@@ -86,6 +75,11 @@ const ProductContent = () => {
                                         <span className='text-zinc-300 font-semibold'>{formattedWarrantyDate}</span>
                                     </div>
                                 </div>
+                                <button className='text-white flex justify-center w-full py-4 items-center bg-[#00e6fb82] rounded-lg h-2 mb-3 cursor-pointer hover:bg-[#00e6fbc7] hover:-translate-y-1 transition-all duration-300' onClick={()=>{
+                                    navigate(`/individual/product-page/${values.id}`)
+                                }}>
+                                    View Details
+                                </button>
                             </div>
                         </div>
                     )

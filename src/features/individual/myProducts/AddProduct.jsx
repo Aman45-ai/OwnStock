@@ -94,11 +94,11 @@ const AddProduct = () => {
                                     className='mt-1 bg-[#0D1521] border border-zinc-700 rounded-lg w-full py-2 px-3 text-white focus:outline-none focus:border-[#13AEA8]'
                                 >
                                     <option value=''>Select category</option>
-                                    <option value='laptop'>Laptop</option>
-                                    <option value='mobile'>Mobile</option>
-                                    <option value='television'>Television</option>
-                                    <option value='kitchen'>Kitchen Appliances</option>
-                                    <option value='others'>Others</option>
+                                    <option value='Laptop'>Laptop</option>
+                                    <option value='Mobile'>Mobile</option>
+                                    <option value='Television'>Television</option>
+                                    <option value='Kitchen Appliances'>Kitchen Appliances</option>
+                                    <option value='Others'>Others</option>
                                 </select>
 
                                 {errors.category && ( <p className='text-red-400 text-xs mt-1'> {errors.category.message} </p> )}

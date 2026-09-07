@@ -10,6 +10,7 @@ import DocumentUi from '../features/individual/documents/DocumentUi'
 import UploadDocument from '../features/individual/documents/UploadDocument'
 import InsuranceUI from '../features/individual/insurance/InsuranceUI'
 import AddInsurance from '../features/individual/insurance/AddInsurance'
+import ProductPage from '../features/individual/myProducts/ProductPage'
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
         <Route path="upload-document" element={<UploadDocument />} />
         <Route path="insurance" element={<InsuranceUI />} />
         <Route path="add-insurance" element={<AddInsurance />} />
+        <Route path="product-page/:id" element={<ProductPage />} />
       </Route>
     </Routes>
 
