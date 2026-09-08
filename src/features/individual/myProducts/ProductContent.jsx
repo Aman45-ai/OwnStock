@@ -49,7 +49,7 @@ const ProductContent = ({ search, category, status }) => {
 
     const productsToShow = products.filter((values)=>{
         const searchFilteredProduct = values.name.toLowerCase().includes(search)
-        const categoryFilteredProduct =  category === "all" || values.category.toLowerCase() === category
+        const categoryFilteredProduct =  category === "all" || values.category.toLowerCase()  === category
         const warrantyStatus = Warranty(values).status.toLowerCase()
         const statusFilteredProduct = status === "all" || warrantyStatus === status
 

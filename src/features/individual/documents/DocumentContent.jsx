@@ -1,5 +1,5 @@
 import { Download, FileText, Folder, Search, ShieldCheck, View,  } from 'lucide-react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IndividualContext } from '../../../context/IndividualContext'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +9,25 @@ const DocumentContent = () => {
     const navigate = useNavigate()
     const { register } = useForm()
     const { documents } = useContext(IndividualContext)
+    const [search, setSearch] = useState("")
+    const [type, setType] = useState("All")
 
+    const invoices = documents.filter((values)=>{
+        return values.type === "Invoice"
+    })
+    const warranties = documents.filter((values)=>{
+        return values.type === "Warranty"
+    })
+    const receipts = documents.filter((values)=>{
+        return values.type === "Receipt"
+    })
+
+    const documentsToShow = documents.filter((values)=>{
+        const searchFilter = values.name.toLowerCase().includes(search)
+        const typeFilter = type === "All" || values.type === type
+
+        return searchFilter && typeFilter
+    })
     const cards = [
         {
             id: 1,
@@ -23,7 +41,7 @@ const DocumentContent = () => {
         {
             id: 2,
             title: "Invoices",
-            number: 10,
+            number:invoices.length,
             subTitle: "Invoice & receipts",
             icon: FileText,
             text: "text-[#0078FF]",
@@ -32,7 +50,7 @@ const DocumentContent = () => {
         {
             id: 3,
             title: "Warranties",
-            number: 8,
+            number: warranties.length,
             subTitle: "Warranty documents",
             icon: ShieldCheck,
             text: "text-[#E07D00]",
@@ -40,9 +58,9 @@ const DocumentContent = () => {
         },
         {
             id: 4,
-            title: "Others",
-            number: 6,
-            subTitle: "Other documents",
+            title: "Receipts",
+            number: receipts.length,
+            subTitle: "Receipt documents",
             icon: FileText,
             text: "text-[#7400FF]",
             background: "bg-[#3B1468]",
@@ -67,6 +85,20 @@ const DocumentContent = () => {
                         Upload Document
                     </button>
                     <p className="text-xs text-zinc-600 mt-4">PDF, JPG or PNG · Securely stored</p>
+                </div>
+            </div>
+        </div>
+    )
+
+     let misMatchFilter = (
+        <div className="w-full max-w-[70vw] mx-auto col-span-full mt-5">
+            <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#0B121D] px-6 py-16 text-center">
+                <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#13AEA8]/10 blur-3xl rounded-full"></div>
+                <div className="relative flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-2xl bg-[#123337] border border-[#1B5555] flex items-center justify-center mb-5 shadow-[0_0_35px_rgba(19,174,168,0.12)]">
+                        <FileText size={30} className="text-[#13AEA8]" />
+                    </div>
+                    <h1 className="text-3xl font-semibold text-white"> No Document Found</h1>
                 </div>
             </div>
         </div>
@@ -100,21 +132,19 @@ const DocumentContent = () => {
                     <div className='flex justify-between items-center bg-[#0C131D] p-2 border-b border-zinc-800 rounded-t-lg'>
                         <div className='flex items-center gap-2 border border-zinc-800 px-2 py-1.5 rounded-sm '>
                             <Search size={20} className='text-zinc-500' />
-                            <input type="text" placeholder='Search by name or product...' {...register("search")} className='placeholder:text-zinc-600 text-sm min-w-50 focus:outline-none text-white' />
+                            <input type="text" placeholder='Search by name or product...' {...register("search")} className='placeholder:text-zinc-600 text-sm min-w-50 focus:outline-none text-white'onChange={(e)=>{
+                                setSearch(e.target.value.toLowerCase())
+                            }} />
                         </div>
                         <div className='flex items-center gap-5'>
                             <div>
-                                <select name="type" id="type" className='border border-zinc-800 text-zinc-300 px-2 py-1 rounded-sm cursor-pointer text-sm'>
-                                    <option value="all" className='bg-black'>All Types</option>
-                                    <option value="invoice" className='bg-black'>Invoice</option>
-                                    <option value="warranty" className='bg-black'>Warranty</option>
-                                    <option value="receipt" className='bg-black'>Receipt</option>
-                                </select>
-                            </div>
-                            <div>
-                                <select name="sort" id="sort" className='border border-zinc-800 text-zinc-300 px-2 py-1 rounded-sm cursor-pointer text-sm'>
-                                    <option value="all" className='bg-black'>Sort: Newest First</option>
-                                    <option value="invoice" className='bg-black'>Sort: Oldest First</option>
+                                <select name="type" id="type" className='border border-zinc-800 text-zinc-300 px-2 py-1 rounded-sm cursor-pointer text-sm'onChange={(e)=>{
+                                    setType(e.target.value)
+                                }}>
+                                    <option value="All" className='bg-black'>All Types</option>
+                                    <option value="Invoice" className='bg-black'>Invoice</option>
+                                    <option value="Warranty" className='bg-black'>Warranty</option>
+                                    <option value="Receipt" className='bg-black'>Receipt</option>
                                 </select>
                             </div>
                         </div>
@@ -130,7 +160,8 @@ const DocumentContent = () => {
                 </div>
 
                 <div>
-                    {documents.map((value) => {
+                    {documentsToShow.length===0?misMatchFilter:
+                    documentsToShow.map((value) => {
                         return (
                             <div key={value.id} className='grid grid-cols-[2fr_1.5fr_1fr_1.2fr_0.8fr_0.8fr] items-center px-4 py-4 border-b border-zinc-800 hover:bg-[#0C131D] transition-colors '>
                                 <div className='flex items-center gap-3'>
