@@ -1,17 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { LockKeyhole, Mail, ShieldCheck, User } from 'lucide-react'
 import logo from '../../assets/logo.png'
 import loginImage from '../../assets/loginImage.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { IndividualContext } from '../../context/IndividualContext'
 
 const Signup = () => {
+    const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors }, watch, trigger } = useForm()
+    const { registeredUsers, setRegisteredUsers, setCurrentUser } = useContext(IndividualContext)
     const password = watch("password")
     const confirmPassword = watch("confirmPassword")
     const onSubmit = (data) => {
         console.log(data)
+        const user = {
+            ...data,
+            id: Date.now()
+        }
+
+        const updatedUsers = [...registeredUsers, user]
+        setRegisteredUsers(updatedUsers)
+        localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers))
+
+        setCurrentUser(user)
+        localStorage.setItem("currentUser", JSON.stringify(user))
+
+        navigate('/individual/login')
+
         toast.success("Account created successfully!")
     }
     useEffect(() => {

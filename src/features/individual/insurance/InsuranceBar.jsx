@@ -7,7 +7,7 @@ const InsuranceBar = () => {
     <div className='px-5 py-3'>
       <div className='flex justify-between items-center'>
         <div>
-            <h3 className='text-4xl font-bold text-white '>Insurance</h3>
+            <h3 className='text-3xl sm:text-4xl font-bold text-white'>Insurance</h3>
             <p className='text-zinc-400 pt-1 text-sm'>Manage and track your product insurance policies and coverage.</p>
         </div>
         <div>

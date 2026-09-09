@@ -1,13 +1,12 @@
 import DashboardContent from "./DashboardContent"
 import Sidebar from "../Sidebar"
 
-
-
 const Dashboard = () => {
+
   return (
-    <div className='grid grid-cols-[220px_1fr] h-screen'>
+    <div className='lg:grid lg:grid-cols-[220px_1fr] min-h-screen bg-[#01060D] '>
       <Sidebar />
-      <div>
+      <div className='min-w-0 p-3'>
         <DashboardContent />
       </div>
     </div>

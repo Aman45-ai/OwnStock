@@ -13,7 +13,7 @@ const DashboardContent = () => {
 
 
   return (
-    <div className='bg-[#00070F] h-full '>
+    <div className='bg-[#00070F] min-h-screen w-full overflow-x-hidden'>
       <div className='max-w-[1600px] w-full mx-auto py-5'>
         <WelcomeSection />
         <StatsCards />

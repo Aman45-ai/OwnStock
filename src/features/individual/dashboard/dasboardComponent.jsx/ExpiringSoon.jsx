@@ -32,7 +32,7 @@ const ExpiringSoon = () => {
     })
 
     let empty = (
-        <div className="w-full max-w-[70vw] mx-auto col-span-full mt-5">
+        <div className="w-full max-w-full mx-auto col-span-full mt-5">
             <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#0B121D] px-6 py-16 text-center">
                 <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#13AEA8]/10 blur-3xl rounded-full"></div>
                 <div className="relative flex flex-col items-center">

@@ -37,7 +37,7 @@ const ProductDetails = () => {
     return (
         <div className='bg-[#00070F] min-h-screen text-white'>
             <div className='max-w-[1600px] mx-auto px-5 py-5'>
-                <div className='flex items-center justify-between mb-5'>
+                <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5'>
                     <button className='border border-zinc-600 rounded-xl p-1.5 cursor-pointer hover:border-[#13AEA8] hover:text-[#13AEA8] transition-all duration-200' onClick={()=>{
                         navigate(-1)
                     }}>
@@ -56,7 +56,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
                 <div className='mb-5'>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex flex-wrap items-center gap-3'>
                         <h1 className='text-2xl font-semibold'>{selectedProduct.name}</h1>
                         <span className='px-2.5 py-1 rounded-full bg-zinc-800 text-xs text-zinc-300'>{selectedProduct.category}</span>
                     </div>
@@ -75,37 +75,37 @@ const ProductDetails = () => {
                             </h2>
                         </div>
                         <div className='space-y-0'>
-                            <div className='flex items-center py-3 border-b border-zinc-800'>
+                            <div className='flex flex-wrap items-center py-3 border-b border-zinc-800 gap-y-1'>
                                 <Apple size={17} className='text-zinc-500 mr-4' />
                                 <span className='text-zinc-400 w-1/2'>Brand</span>
                                 <span className='text-sm'>{selectedProduct.brand}</span>
                             </div>
 
-                            <div className='flex items-center py-3 border-b border-zinc-800'>
+                            <div className='flex flex-wrap items-center py-3 border-b border-zinc-800 gap-y-1'>
                                 <Package size={17} className='text-zinc-500 mr-4' />
                                 <span className='text-zinc-400 w-1/2'>Model</span>
                                 <span className='text-sm'>{selectedProduct.name}</span>
                             </div>
 
-                            <div className='flex items-center py-3 border-b border-zinc-800'>
+                            <div className='flex flex-wrap items-center py-3 border-b border-zinc-800 gap-y-1'>
                                 <Hash size={17} className='text-zinc-500 mr-4' />
                                 <span className='text-zinc-400 w-1/2'>Serial Number</span>
                                 <span className='text-sm'>{selectedProduct.serialNumber || "-"}</span>
                             </div>
 
-                            <div className='flex items-center py-3 border-b border-zinc-800'>
+                            <div className='flex flex-wrap items-center py-3 border-b border-zinc-800 gap-y-1'>
                                 <Tag size={17} className='text-zinc-500 mr-4' />
                                 <span className='text-zinc-400 w-1/2'>Category</span>
                                 <span className='text-sm'>{selectedProduct.category}</span>
                             </div>
 
-                            <div className='flex items-center py-3 border-b border-zinc-800'>
+                            <div className='flex flex-wrap items-center py-3 border-b border-zinc-800 gap-y-1'>
                                 <CalendarDays size={17} className='text-zinc-500 mr-4' />
                                 <span className='text-zinc-400 w-1/2'>Purchase Date</span>
                                 <span className='text-sm'>{formattedPurchaseDate}</span>
                             </div>
 
-                            <div className='flex items-center py-3 border-b border-zinc-800'>
+                            <div className='flex flex-wrap items-center py-3 border-b border-zinc-800 gap-y-1'>
                                 <IndianRupee size={17} className='text-zinc-500 mr-4' />
                                 <span className='text-zinc-400 w-1/2'>Purchase Price</span>
                                 <span className='text-sm'>{selectedProduct.price}</span>

@@ -1,4 +1,4 @@
-import { Download, FileText, Folder, Search, ShieldCheck, View,  } from 'lucide-react'
+import { Download, FileText, Folder, Search, ShieldCheck, View, } from 'lucide-react'
 import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IndividualContext } from '../../../context/IndividualContext'
@@ -12,17 +12,17 @@ const DocumentContent = () => {
     const [search, setSearch] = useState("")
     const [type, setType] = useState("All")
 
-    const invoices = documents.filter((values)=>{
+    const invoices = documents.filter((values) => {
         return values.type === "Invoice"
     })
-    const warranties = documents.filter((values)=>{
+    const warranties = documents.filter((values) => {
         return values.type === "Warranty"
     })
-    const receipts = documents.filter((values)=>{
+    const receipts = documents.filter((values) => {
         return values.type === "Receipt"
     })
 
-    const documentsToShow = documents.filter((values)=>{
+    const documentsToShow = documents.filter((values) => {
         const searchFilter = values.name.toLowerCase().includes(search)
         const typeFilter = type === "All" || values.type === type
 
@@ -41,7 +41,7 @@ const DocumentContent = () => {
         {
             id: 2,
             title: "Invoices",
-            number:invoices.length,
+            number: invoices.length,
             subTitle: "Invoice & receipts",
             icon: FileText,
             text: "text-[#0078FF]",
@@ -68,7 +68,7 @@ const DocumentContent = () => {
     ]
 
     let empty = (
-        <div className="w-full max-w-[70vw] mx-auto col-span-full mt-5">
+        <div className="w-full max-w-full mx-auto col-span-full mt-5">
             <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#0B121D] px-6 py-16 text-center">
                 <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#13AEA8]/10 blur-3xl rounded-full"></div>
                 <div className="relative flex flex-col items-center">
@@ -90,7 +90,7 @@ const DocumentContent = () => {
         </div>
     )
 
-     let misMatchFilter = (
+    let misMatchFilter = (
         <div className="w-full max-w-[70vw] mx-auto col-span-full mt-5">
             <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-[#0B121D] px-6 py-16 text-center">
                 <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#13AEA8]/10 blur-3xl rounded-full"></div>
@@ -129,16 +129,15 @@ const DocumentContent = () => {
             </div>
             <div className={documents.length === 0 ? "hidden" : "block"}>
                 <div className='pt-5'>
-                    <div className='flex justify-between items-center bg-[#0C131D] p-2 border-b border-zinc-800 rounded-t-lg'>
-                        <div className='flex items-center gap-2 border border-zinc-800 px-2 py-1.5 rounded-sm '>
-                            <Search size={20} className='text-zinc-500' />
-                            <input type="text" placeholder='Search by name or product...' {...register("search")} className='placeholder:text-zinc-600 text-sm min-w-50 focus:outline-none text-white'onChange={(e)=>{
-                                setSearch(e.target.value.toLowerCase())
-                            }} />
-                        </div>
-                        <div className='flex items-center gap-5'>
+                    <div className='flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 bg-[#0C131D] p-2 border-b border-zinc-800 rounded-t-lg'>                        <div className='flex items-center gap-2 border border-zinc-800 px-2 py-1.5 rounded-sm '>
+                        <Search size={20} className='text-zinc-500' />
+                        <input type="text" placeholder='Search by name or product...' {...register("search")} className='placeholder:text-zinc-600 text-sm min-w-50 focus:outline-none text-white' onChange={(e) => {
+                            setSearch(e.target.value.toLowerCase())
+                        }} />
+                    </div>
+                        <div className='flex items-center gap-2'>
                             <div>
-                                <select name="type" id="type" className='border border-zinc-800 text-zinc-300 px-2 py-1 rounded-sm cursor-pointer text-sm'onChange={(e)=>{
+                                <select name="type" id="type" className='border border-zinc-800 text-zinc-300 px-2 py-1 rounded-sm cursor-pointer text-sm' onChange={(e) => {
                                     setType(e.target.value)
                                 }}>
                                     <option value="All" className='bg-black'>All Types</option>
@@ -160,31 +159,31 @@ const DocumentContent = () => {
                 </div>
 
                 <div>
-                    {documentsToShow.length===0?misMatchFilter:
-                    documentsToShow.map((value) => {
-                        return (
-                            <div key={value.id} className='grid grid-cols-[2fr_1.5fr_1fr_1.2fr_0.8fr_0.8fr] items-center px-4 py-4 border-b border-zinc-800 hover:bg-[#0C131D] transition-colors '>
-                                <div className='flex items-center gap-3'>
-                                    <div className={`${value.type==="Receipt" ? "text-[#09e6f6] bg-[#052734f0]" : value.type==="Invoice"?"text-[#6c09f6] bg-[#181238f0]":"text-[#0980f6] bg-[#122338f0]"} p-2 rounded-lg`}><FileText size={18} /></div>
-                                    <div>
-                                        <p className='text-white text-sm font-medium'>{value.name}</p>
+                    {documentsToShow.length === 0 ? misMatchFilter :
+                        documentsToShow.map((value) => {
+                            return (
+                                <div key={value.id} className='grid grid-cols-[2fr_1.5fr_1fr_1.2fr_0.8fr_0.8fr] items-center px-4 py-4 border-b border-zinc-800 hover:bg-[#0C131D] transition-colors '>
+                                    <div className='flex items-center gap-3'>
+                                        <div className={`${value.type === "Receipt" ? "text-[#09e6f6] bg-[#052734f0]" : value.type === "Invoice" ? "text-[#6c09f6] bg-[#181238f0]" : "text-[#0980f6] bg-[#122338f0]"} p-2 rounded-lg`}><FileText size={18} /></div>
+                                        <div>
+                                            <p className='text-white text-sm font-medium'>{value.name}</p>
+                                        </div>
+                                    </div>
+                                    <p className='text-zinc-300 text-sm'>{value.product}</p>
+                                    <span className={`${value.type === "Receipt" ? "border border-[#014c52]" : value.type === "Invoice" ? "border border-[#2d037b]" : "border border-[#02256c]"} rounded-lg px-2 py-1 text-zinc-300 w-fit`}>{value.type}</span>
+                                    <p className='text-zinc-400 text-sm'>{new Date(value.uploadedOn).toLocaleDateString("en-GB", {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric"
+                                    })}</p>
+                                    <p className='text-zinc-400 text-sm'>{value.fileSize || "—"}</p>
+                                    <div className='flex justify-end gap-2'>
+                                        <button className='text-zinc-400 hover:text-white cursor-pointer transition-colors'><View /></button>
+                                        <button className='text-zinc-400 hover:text-[#13AEA8] cursor-pointer transition-colors'><Download /></button>
                                     </div>
                                 </div>
-                                <p className='text-zinc-300 text-sm'>{value.product}</p>
-                                <span className={`${value.type==="Receipt" ? "border border-[#014c52]": value.type==="Invoice"?"border border-[#2d037b]":"border border-[#02256c]"} rounded-lg px-2 py-1 text-zinc-300 w-fit`}>{value.type}</span>
-                                <p className='text-zinc-400 text-sm'>{new Date(value.uploadedOn).toLocaleDateString("en-GB", {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric"
-                                })}</p>
-                                <p className='text-zinc-400 text-sm'>{value.fileSize || "—"}</p>
-                                <div className='flex justify-end gap-2'>
-                                    <button className='text-zinc-400 hover:text-white cursor-pointer transition-colors'><View /></button>
-                                    <button className='text-zinc-400 hover:text-[#13AEA8] cursor-pointer transition-colors'><Download /></button>
-                                </div>
-                            </div>
-                        )
-                    })
+                            )
+                        })
                     }
                 </div>
             </div>

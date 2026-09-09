@@ -1,24 +1,36 @@
 import { LockKeyhole, ShieldCheck, User } from 'lucide-react'
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from '../../assets/logo.png'
 import loginImage from '../../assets/loginImage.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { IndividualContext } from '../../context/IndividualContext'
 
 const login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const { registeredUsers, setCurrentUser } = useContext(IndividualContext)
     const navigate = useNavigate()
     const onSubmit = (data) => {
         console.log(data)
-        toast.success("Login successful!")
-        navigate('/individual/dashboard')
+        const user = registeredUsers.find((value) => {
+            return value.email === data.email && value.password === data.password
+        })
+        if (user) {
+            setCurrentUser(user)
+            localStorage.setItem("currentUser", JSON.stringify(user))
+            toast.success("Login successful!")
+            navigate('/individual/dashboard')
+        } else {
+            toast.error("Invalid email or password")
+        }
+
     }
     return (
         <form className='bg-[#000309] px-5 py-5 min-h-dvh flex justify-between items-center' onSubmit={handleSubmit(onSubmit)}>
             <div className='lg:flex justify-center items-stretch w-full max-w-350 mx-auto border border-[#14181E] rounded-2xl'>
                 <div className='h-[92vh] w-1/2 hidden lg:block border-r border-[#14181E] rounded-2xl'>
-                    <img src={loginImage} alt="loginSideImage"  className='w-full h-full object-contain '/>
+                    <img src={loginImage} alt="loginSideImage" className='w-full h-full object-contain ' />
                 </div>
                 <div className='lg:w-1/2 bg-[#060B11] flex items-center rounded-2xl'>
                     <div className='w-full max-w-105 mx-auto px-8'>
